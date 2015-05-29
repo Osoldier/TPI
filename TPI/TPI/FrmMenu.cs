@@ -12,20 +12,23 @@ namespace TPI
 {
     public partial class FrmMenu : Form
     {
-
+        FrmGame frmGame;
         public FrmMenu()
         {
             InitializeComponent();
+            
         }
-
+        
         private void btnJoin_Click(object sender, EventArgs e)
         {
-
+            frmGame = new FrmGame(true, tbxIP.Text, tbxNickname.Text);
+            frmGame.Show();
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-
+            frmGame = new FrmGame(false, tbxIP.Text, tbxNickname.Text);
+            frmGame.Show();
         }
     }
 }

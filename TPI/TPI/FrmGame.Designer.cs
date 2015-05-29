@@ -37,7 +37,9 @@
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1264, 682);
             this.Name = "FrmGame";
-            this.Text = "SquareRunnurs - Jeu";
+            this.Text = "SquareRunners - Jeu";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmGame_FormClosing);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FrmGame_Paint);
             this.ResumeLayout(false);
 
         }

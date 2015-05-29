@@ -8,7 +8,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using TPI.Entities;
 
 namespace TPI.Engine
 {
@@ -22,6 +21,7 @@ namespace TPI.Engine
         private Image _texture;
         private Pen _pen;
         private Color _color;
+        private Entity _lastCollidable;
 
         public virtual void Render()
         {
@@ -110,6 +110,7 @@ namespace TPI.Engine
             {
                 if (pCollidable.Position.Y + pCollidable.Size.Y >= this.Position.Y + pDeltaY && pCollidable.Position.Y <= this.Position.Y + this.Size.Y + pDeltaY)
                 {
+                    LastCollidable = pCollidable;
                     return true;
                 }
             }
@@ -151,6 +152,11 @@ namespace TPI.Engine
         {
             get { return _color; }
             set { _color = value; }
+        }
+        public Entity LastCollidable
+        {
+            get { return _lastCollidable; }
+            set { _lastCollidable = value; }
         }
     }
 }

@@ -5,7 +5,7 @@
  * Date: 28.05.15
  * Version: 0.1
  */
-namespace TPI.Entities
+namespace TPI.Engine
 {
     public class Vector2f
     {

@@ -44,27 +44,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Constants.cs" />
     <Compile Include="Engine\Entity.cs" />
-    <Compile Include="Entities\Vector2f.cs" />
+    <Compile Include="Entities\Block.cs" />
+    <Compile Include="Engine\Vector2f.cs" />
+    <Compile Include="Entities\Character.cs" />
+    <Compile Include="Entities\Platform.cs" />
     <Compile Include="FrmGame.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmGame.Designer.cs">
       <DependentUpon>FrmGame.cs</DependentUpon>
     </Compile>
-    <Compile Include="Menu.cs">
+    <Compile Include="Game.cs" />
+    <Compile Include="FrmMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Menu.Designer.cs">
-      <DependentUpon>Menu.cs</DependentUpon>
+    <Compile Include="FrmMenu.Designer.cs">
+      <DependentUpon>FrmMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Level.cs" />
+    <Compile Include="Network\NetworkManager.cs" />
+    <Compile Include="Network\NetworkRecieveCallback.cs" />
+    <Compile Include="Network\RecieveManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmGame.resx">
       <DependentUpon>FrmGame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Menu.resx">
-      <DependentUpon>Menu.cs</DependentUpon>
+    <EmbeddedResource Include="FrmMenu.resx">
+      <DependentUpon>FrmMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,9 +98,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Network\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\back-10.png" />
   </ItemGroup>
