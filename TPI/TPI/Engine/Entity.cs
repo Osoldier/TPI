@@ -48,7 +48,7 @@ namespace TPI.Engine
         public abstract void Update();
 
         /// <summary>
-        /// Teste si il y a une collision cette entitée et une de la liste dérivée d'entités
+        /// Teste si il y a une collision cette entité et une de la liste dérivée d'entités
         /// </summary>
         /// <typeparam name="T">T doit être hérité de Entity</typeparam>
         /// <param name="pCollidables">Liste à tester</param>
@@ -66,7 +66,7 @@ namespace TPI.Engine
         }
 
         /// <summary>
-        /// Teste si il y a une collision entre cette entitée et une autre
+        /// Teste si il y a une collision entre cette entité et une autre
         /// </summary>
         /// <typeparam name="T">T doit être hérité de Entity</typeparam>
         /// <param name="pCollidables">Entité à tester</param>
@@ -77,7 +77,7 @@ namespace TPI.Engine
         }
 
         /// <summary>
-        /// Teste si il y aurait une collision entre cette entitée et une de la liste
+        /// Teste si il y aurait une collision entre cette entité et une de la liste
         /// </summary>
         /// <typeparam name="T">T doit être hérité de Entity</typeparam>
         /// <param name="pCollidables">Liste à tester</param>

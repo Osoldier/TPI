@@ -54,6 +54,7 @@
             this.tbxIP.Name = "tbxIP";
             this.tbxIP.Size = new System.Drawing.Size(100, 20);
             this.tbxIP.TabIndex = 1;
+            this.tbxIP.TextChanged += new System.EventHandler(this.tbxIP_TextChanged);
             // 
             // btnJoin
             // 
@@ -92,6 +93,7 @@
             this.tbxNickname.Name = "tbxNickname";
             this.tbxNickname.Size = new System.Drawing.Size(100, 20);
             this.tbxNickname.TabIndex = 3;
+            this.tbxNickname.TextChanged += new System.EventHandler(this.tbxNickname_TextChanged);
             // 
             // lblPseudo
             // 

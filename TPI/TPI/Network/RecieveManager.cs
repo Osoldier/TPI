@@ -11,7 +11,6 @@ namespace TPI.Network
     {
         public override void OnRecieve()
         {
-
         }
     }
 }

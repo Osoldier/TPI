@@ -7,6 +7,7 @@
  */
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Threading;
 using TPI.Engine;
 using TPI.Entities;
@@ -18,6 +19,7 @@ namespace TPI
         private static Level _currentLevel;
         private Character _player, _competitor;
         private bool _running;
+        private float XScroll = 0f;
 
         public Game(bool pJoin, string pIP, string pName)
         {
@@ -32,18 +34,24 @@ namespace TPI
 
         public void Render()
         {
+            GraphicsState gs = Entity.Context.Save();
+            Entity.Context.TranslateTransform(-XScroll + 100, 0);
             CurrentLevel.Render();
             Player.Render();
             Competitor.Render();
+            Entity.Context.Restore(gs);
         }
 
         public void Update()
         {
             long lastUp = 0;
             Stopwatch stopWatchUp = Stopwatch.StartNew();
-            while(Running) {
+
+            while (Running)
+            {
                 CurrentLevel.Update();
                 Player.Update();
+                this.XScroll = Player.Position.X;
                 CapLoop(Constants.UPDATE_CAP, stopWatchUp.ElapsedMilliseconds - lastUp);
                 lastUp = stopWatchUp.ElapsedMilliseconds;
             }

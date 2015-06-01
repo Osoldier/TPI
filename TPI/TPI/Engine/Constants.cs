@@ -11,7 +11,7 @@ namespace TPI.Engine
     {
         public const float g = 9.81f;
         public const float METER_TO_UNIT = 30;
-        public const float JUMP_SPEED = 8.5f;
+        public const float JUMP_SPEED = 8f;
         public const int UPDATE_CAP = 60;
     }
 }
