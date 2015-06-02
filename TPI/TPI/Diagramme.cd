@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TPI.Engine.Constants" Collapsed="true">
+    <Position X="7.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAEAAAAAgAAAAgAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Engine.Entity" Collapsed="true">
+    <Position X="7.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAEAwAIiIAwEABAAAAAAAAAAAAAABIAgAIAAAA=</HashCode>
+      <FileName>Engine\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Engine.Keyboard" Collapsed="true">
+    <Position X="7.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Engine\Keyboard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Engine.Vector2f" Collapsed="true">
+    <Position X="7.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Engine\Vector2f.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Entities.Block" Collapsed="true">
+    <Position X="4.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Block.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Entities.Character" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAACAAAAICAAAAIAAAAAAAAUAAAQAAAQAAABCKAA=</HashCode>
+      <FileName>Entities\Character.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Entities.Platform" Collapsed="true">
+    <Position X="2.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Platform.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Game" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAoAAAAACAAAAAAEAAAIARAAAQgAEQA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Level" Collapsed="true">
+    <Position X="2.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAEBAAAAAAAAAAQAAAAAAAAAQAAABAEAAAAAAA=</HashCode>
+      <FileName>Level.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Network.RecieveManager" Collapsed="true">
+    <Position X="4.5" Y="5" Width="1.5" />
+    <InheritanceLine Type="TPI.Network.NetworkRecieveCallback" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.375" Y="4.312" />
+        <Point X="5.375" Y="5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Network\RecieveManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Network.NetworkRecieveCallback" Collapsed="true">
+    <Position X="4.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Network\NetworkRecieveCallback.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Network.NetworkManager" Collapsed="true">
+    <Position X="2.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Network\NetworkManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

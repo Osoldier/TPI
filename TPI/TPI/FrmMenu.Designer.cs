@@ -54,6 +54,7 @@
             this.tbxIP.Name = "tbxIP";
             this.tbxIP.Size = new System.Drawing.Size(100, 20);
             this.tbxIP.TabIndex = 1;
+            this.tbxIP.Text = "225.0.0.1";
             this.tbxIP.TextChanged += new System.EventHandler(this.tbxIP_TextChanged);
             // 
             // btnJoin

@@ -58,7 +58,7 @@ namespace TPI
                     ok = false;
                 }
             }
-            return !ok;
+            return ok;
         }
 
         private void tbxIP_TextChanged(object sender, EventArgs e)

@@ -19,10 +19,13 @@ namespace TPI
         const int BLOCK_HEIGHT = 50;
         const int BLOCK_MAX_WIDTH = 100;
 
-        public Level(int pSeed)
+        public static Object CollectionLocker = new Object();
+
+        public Level(int pSeed, bool pGenerate)
         {
             this.Elements = new List<Block>();
-            this.generateRandomly(pSeed);
+            if (pGenerate)
+                this.generateRandomly(pSeed);
         }
 
         private void generateRandomly(int pSeed)
@@ -57,9 +60,12 @@ namespace TPI
 
         public void Render()
         {
-            foreach (Block b in Elements)
+            lock (CollectionLocker)
             {
-                b.Render();
+                foreach (Block b in Elements)
+                {
+                    b.Render();
+                }
             }
         }
 

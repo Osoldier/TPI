@@ -13,14 +13,23 @@ namespace TPI.Entities
     public class Platform : Block
     {
         private readonly Color COLOR = Color.FromArgb(26, 235, 178);
+        private bool _end = false;
+
         public Platform(Vector2f pPosition, Vector2f pSize)
         {
             this.Position = pPosition;
             this.Size = pSize;
             this.Color = COLOR;
         }
+
         public override void Update()
         {
+        }
+
+        public bool End
+        {
+            get { return _end; }
+            set { _end = value; }
         }
     }
 }

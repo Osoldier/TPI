@@ -7,8 +7,8 @@
  */
 namespace TPI.Network
 {
-    public abstract class NetworkRecieveCallback
+    public interface NetworkRecieveCallback
     {
-        public abstract void OnRecieve();
+        void OnRecieve(byte[] data);
     }
 }

@@ -51,6 +51,7 @@
     <Compile Include="Engine\Vector2f.cs" />
     <Compile Include="Entities\Character.cs" />
     <Compile Include="Entities\Platform.cs" />
+    <Compile Include="Entities\Pointer.cs" />
     <Compile Include="FrmGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +87,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Diagramme.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

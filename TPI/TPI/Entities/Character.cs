@@ -1,6 +1,6 @@
 ﻿/**
  * Document: Character.cs
- * Description: Personnage
+ * Description: Personnage du jeu
  * Auteur: Ibanez Thomas
  * Date: 29.05.15
  * Version: 0.1
@@ -20,7 +20,6 @@ namespace TPI.Entities
         private const float SPEED = 5f;
 
         private float _verticalSpeed = 0;
-        private float _horizontalSpeed = 0;
 
         private bool _grounded = false;
 
@@ -28,7 +27,6 @@ namespace TPI.Entities
 
         private bool _jumping = false;
         private bool _alive = true;
-
 
         public Character(Color pColor, Vector2f pPosition)
         {
@@ -39,13 +37,22 @@ namespace TPI.Entities
 
         public override void Update()
         {
-            float gravityVelocity = (float)(-Constants.g * Math.Pow((t), 2)) / 2;
+            lock (Level.CollectionLocker)
+            {
+                ApplyPhysic();
+                HandleInput();
+            }
+        }
+
+        private void ApplyPhysic()
+        {
+            float gravityVelocity = (float)(-Constants.g * Constants.METER_TO_UNIT * Math.Pow((t), 2)) / 2;
 
             VerticalSpeed = gravityVelocity;
 
             if (!this.wouldCollide(Game.CurrentLevel.Elements, 0, -gravityVelocity) && !this.isCollided(Game.CurrentLevel.Elements))
             {
-                t += 1.0f / (float)Constants.UPDATE_CAP;
+                t += 1.0f / Constants.UPDATE_CAP;
                 this.Grounded = false;
             }
             else
@@ -59,10 +66,15 @@ namespace TPI.Entities
 
             if (Jumping)
             {
-                VerticalSpeed += (Constants.JUMP_SPEED * t);
+                VerticalSpeed += (Constants.JUMP_SPEED * t) * Constants.METER_TO_UNIT;
             }
 
             this.Position.Y -= VerticalSpeed;
+        }
+
+        private void HandleInput()
+        {
+
             bool KEY_LEFT = Keyboard.IsKeyDown(Keys.A) || Keyboard.IsKeyDown(Keys.Left);
             bool KEY_RIGHT = Keyboard.IsKeyDown(Keys.D) || Keyboard.IsKeyDown(Keys.Right);
             bool KEY_UP = Keyboard.IsKeyDown(Keys.Space) || Keyboard.IsKeyDown(Keys.W) || Keyboard.IsKeyDown(Keys.Up);
@@ -85,13 +97,13 @@ namespace TPI.Entities
             }
         }
 
-        public float VerticalSpeed
+        private float VerticalSpeed
         {
             get { return _verticalSpeed; }
             set { _verticalSpeed = value; }
         }
 
-        public bool Grounded
+        private bool Grounded
         {
             get { return _grounded; }
             set { _grounded = value; }
@@ -103,16 +115,10 @@ namespace TPI.Entities
             set { _alive = value; }
         }
 
-        public bool Jumping
+        private bool Jumping
         {
             get { return _jumping; }
             set { _jumping = value; }
-        }
-
-        public float HorizontalSpeed
-        {
-            get { return _horizontalSpeed; }
-            set { _horizontalSpeed = value; }
         }
     }
 }
