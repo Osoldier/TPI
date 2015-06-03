@@ -9,6 +9,9 @@ using TPI.Engine;
 
 namespace TPI.Entities
 {
+    /// <summary>
+    /// Classe mère de tous les blocks du jeu
+    /// </summary>
     public abstract class Block : Entity
     {
     }

@@ -11,10 +11,14 @@ using System;
 using System.Net;
 using System.Text;
 
-namespace TPI.Network
-{
+namespace TPI.Network {
+
+    /// <summary>
+    /// Gère la connexion à l'adversaire
+    /// </summary>
     public class NetworkManager
     {
+        /// <summary>Port de connexion</summary>
         private const int PORT = 2015;
 
         private UdpClient _client;
@@ -26,6 +30,11 @@ namespace TPI.Network
         private Thread _listener;
         private NetworkRecieveCallback _callback;
 
+        /// <summary>
+        /// Crée le manager et commence a écouter
+        /// </summary>
+        /// <param name="pIP">Adresse IP à écouter</param>
+        /// <param name="pCallback">Objet contenant l'implémentation de OnRecieve à appler chaque fois qu'une message est reçu</param>
         public NetworkManager (IPAddress pIP, NetworkRecieveCallback pCallback)
 	    {
             this.MulticastIpAddress = pIP;
@@ -44,21 +53,37 @@ namespace TPI.Network
             this.StartListening();
 	    }
 
+        /// <summary>
+        /// Arrête l'écoute
+        /// </summary>
         ~NetworkManager()
         {
             this.StopListening();
         }
 
+        /// <summary>
+        /// Converti un table de bytes en string (ASCII)
+        /// </summary>
+        /// <param name="pData"></param>
+        /// <returns></returns>
         public static string BytesToString(byte[] pData)
         {
             return Encoding.ASCII.GetString(pData);
         }
 
+        /// <summary>
+        /// Converti une chaine de caractères en table de byte (ASCII)
+        /// </summary>
+        /// <param name="pData"></param>
+        /// <returns></returns>
         public static byte[] StringToBytes(string pData)
         {
             return Encoding.ASCII.GetBytes(pData);
         }
 
+        /// <summary>
+        /// Débute l'écoute sur le réseau
+        /// </summary>
         public void StartListening()
         {
             this.Listening = true;
@@ -67,17 +92,27 @@ namespace TPI.Network
             this.Listener.Start();
         }
 
+        /// <summary>
+        /// Arrête l'écoute sur le réseau
+        /// </summary>
         public void StopListening()
         {
             this.Listening = false;
             this.Listener.Join();
         }
 
+        /// <summary>
+        /// Envoie un message
+        /// </summary>
+        /// <param name="pData">Message à envoyer</param>
         public void Send(string pData)
         {
             this.Client.Send(StringToBytes(pData), pData.Length, this.RemoteEndPoint);
         }
 
+        /// <summary>
+        /// Attend le reçu d'un message
+        /// </summary>
         public void Receive()
         {
             while (this.Listening)
@@ -91,41 +126,72 @@ namespace TPI.Network
             }
         }
 
+        /// <summary>
+        /// Client UDP
+        /// </summary>
         public UdpClient Client
         {
             get { return _client; }
             set { _client = value; }
         }
+
+        /// <summary>
+        /// Adresse IP de multicast
+        /// </summary>
         public IPAddress MulticastIpAddress
         {
             get { return _multicastIpAddress; }
             set { _multicastIpAddress = value; }
         }
+
+        /// <summary>
+        /// Point d'attache local
+        /// </summary>
         public IPEndPoint LocalEndPoint
         {
             get { return _localEndPoint; }
             set { _localEndPoint = value; }
         }
+
+        /// <summary>
+        /// Point d'attache distant
+        /// </summary>
         public IPEndPoint RemoteEndPoint
         {
             get { return _remoteEndPoint; }
             set { _remoteEndPoint = value; }
         }
+
+        /// <summary>
+        /// Reçu du réseau
+        /// </summary>
         public byte[] Buffer
         {
             get { return _buffer; }
             set { _buffer = value; }
         }
+
+        /// <summary>
+        /// Le réseau doit écouter ?
+        /// </summary>
         public bool Listening
         {
             get { return _listening; }
             set { _listening = value; }
         }
+
+        /// <summary>
+        /// Thread de réception
+        /// </summary>
         public Thread Listener
         {
             get { return _listener; }
             set { _listener = value; }
         }
+
+        /// <summary>
+        /// Objet contenant l'implémentation de OnRecieve à appler chaque fois qu'une message est reçu
+        /// </summary>
         public NetworkRecieveCallback Callback
         {
             get { return _callback; }

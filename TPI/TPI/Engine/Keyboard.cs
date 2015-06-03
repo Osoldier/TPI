@@ -12,8 +12,14 @@ using System.Windows.Forms;
 
 namespace TPI.Engine
 {
+    /// <summary>
+    /// Permet de gérer les entrées du clavier à un niveau plus bas que Forms
+    /// </summary>
     public static class Keyboard
     {
+        /// <summary>
+        /// Liste des états possibles pour une touche
+        /// </summary>
         [Flags]
         private enum KeyStates
         {
@@ -22,9 +28,19 @@ namespace TPI.Engine
             Toggled = 2
         }
 
+        /// <summary>
+        /// Demande à windows l’état d’une touche via la dll user32
+        /// </summary>
+        /// <param name="keyCode"></param>
+        /// <returns></returns>
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         private static extern short GetKeyState(int keyCode);
 
+        /// <summary>
+        /// Donne l’état d’une touche
+        /// </summary>
+        /// <param name="key">Touche à demander</param>
+        /// <returns>KeyStates</returns>
         private static KeyStates GetKeyState(Keys key)
         {
             KeyStates state = KeyStates.None;
@@ -43,11 +59,21 @@ namespace TPI.Engine
             return state;
         }
 
+        /// <summary>
+        /// Demande si une touche est enfoncée
+        /// </summary>
+        /// <param name="key">Touche à demander</param>
+        /// <returns>true si la touche donnée en paramètre est enfoncée, false sinon</returns>
         public static bool IsKeyDown(Keys key)
         {
             return KeyStates.Down == (GetKeyState(key) & KeyStates.Down);
         }
 
+        /// <summary>
+        /// Demande is une touche est basculée
+        /// </summary>
+        /// <param name="key">Touche à demander</param>
+        /// <returns>true si la touche donnée en paramètre est basculée, false sinon</returns>
         public static bool IsKeyToggled(Keys key)
         {
             return KeyStates.Toggled == (GetKeyState(key) & KeyStates.Toggled);

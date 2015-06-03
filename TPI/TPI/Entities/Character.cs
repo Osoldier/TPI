@@ -13,10 +13,16 @@ using TPI.Engine;
 
 namespace TPI.Entities
 {
+    /// <summary>
+    /// Personnage du jeu
+    /// </summary>
     public class Character : Entity
     {
+        /// <summary>Longueur d’un personnage</summary>
         private const float WIDTH = 30;
+        /// <summary></summary>
         private const float HEIGHT = 30;
+        /// <summary></summary>
         private const float SPEED = 5f;
 
         private float _verticalSpeed = 0;
@@ -28,6 +34,12 @@ namespace TPI.Entities
         private bool _jumping = false;
         private bool _alive = true;
 
+        /// <summary>
+        /// Crée le personnage selon sa position et sa couleur. 
+        /// La taille est récupérée dans les constantes
+        /// </summary>
+        /// <param name="pColor">Couleur du personnage</param>
+        /// <param name="pPosition">Position du personnage</param>
         public Character(Color pColor, Vector2f pPosition)
         {
             this.Size = new Vector2f(WIDTH, HEIGHT);
@@ -35,6 +47,9 @@ namespace TPI.Entities
             this.Position = pPosition;
         }
 
+        /// <summary>
+        /// Applique la physique et gère les entrées
+        /// </summary>
         public override void Update()
         {
             lock (Level.CollectionLocker)
@@ -44,6 +59,9 @@ namespace TPI.Entities
             }
         }
 
+        /// <summary>
+        /// Applique la physique
+        /// </summary>
         private void ApplyPhysic()
         {
             float gravityVelocity = (float)(-Constants.g * Constants.METER_TO_UNIT * Math.Pow((t), 2)) / 2;
@@ -72,6 +90,9 @@ namespace TPI.Entities
             this.Position.Y -= VerticalSpeed;
         }
 
+        /// <summary>
+        /// Gère les entrées
+        /// </summary>
         private void HandleInput()
         {
 
@@ -79,7 +100,7 @@ namespace TPI.Entities
             bool KEY_RIGHT = Keyboard.IsKeyDown(Keys.D) || Keyboard.IsKeyDown(Keys.Right);
             bool KEY_UP = Keyboard.IsKeyDown(Keys.Space) || Keyboard.IsKeyDown(Keys.W) || Keyboard.IsKeyDown(Keys.Up);
 
-            if (KEY_LEFT && !wouldCollide(Game.CurrentLevel.Elements, -SPEED, -1))
+            if (KEY_LEFT && !wouldCollide(Game.CurrentLevel.Elements, -SPEED, -1) && this.Position.X >= 5)
             {
                 this.Position.X -= SPEED;
             }
@@ -97,24 +118,35 @@ namespace TPI.Entities
             }
         }
 
+        /// <summary>Vitesse verticale</summary>
         private float VerticalSpeed
         {
             get { return _verticalSpeed; }
             set { _verticalSpeed = value; }
         }
 
+        /// <summary>Le personnage est-t-il posé sur un block</summary>
         private bool Grounded
         {
             get { return _grounded; }
             set { _grounded = value; }
         }
 
+        /// <summary>Le personnage est "vivant"</summary>
         public bool Alive
         {
             get { return _alive; }
             set { _alive = value; }
         }
 
+        /// <summary>variable temps utilisée pour le calcul de la physique</summary>
+        public float T
+        {
+            get { return t; }
+            set { t = value; }
+        }
+
+        /// <summary>Le personnage est en train de sauter</summary>
         private bool Jumping
         {
             get { return _jumping; }

@@ -12,22 +12,37 @@ using TPI.Entities;
 
 namespace TPI
 {
+    /// <summary>
+    /// Contient toute les plateformes d’un niveau
+    /// </summary>
     public class Level
     {
         private List<Block> _elements;
+        /// <summary>longueur totale du niveau (en pixels)</summary>
         const int LEVEL_WIDTH = 5000;
+        /// <summary>hauteur d’un block</summary>
         const int BLOCK_HEIGHT = 50;
+        /// <summary>longueur maximale d’un block</summary>
         const int BLOCK_MAX_WIDTH = 100;
-
+        /// <summary>Verrou de la liste des plateformes</summary>
         public static Object CollectionLocker = new Object();
 
+        /// <summary>
+        /// Instancie la liste des éléments et lance la génération si pGenerate = true.
+        /// </summary>
+        /// <param name="pSeed">seed du niveau, -1 = seed aléatoire</param>
+        /// <param name="pGenerate">true = generer le niveau, false = ne pas le generer</param>
         public Level(int pSeed, bool pGenerate)
         {
             this.Elements = new List<Block>();
             if (pGenerate)
                 this.generateRandomly(pSeed);
         }
-
+        
+        /// <summary>
+        /// Génére un niveau aléatoirement 
+        /// </summary>
+        /// <param name="pSeed">seed du niveau</param>
         private void generateRandomly(int pSeed)
         {
             Random rand;
@@ -58,6 +73,9 @@ namespace TPI
 
         }
 
+        /// <summary>
+        /// Rend tout le niveau
+        /// </summary>
         public void Render()
         {
             lock (CollectionLocker)
@@ -69,11 +87,15 @@ namespace TPI
             }
         }
 
+        /// <summary>
+        /// Logique des objets du niveau
+        /// </summary>
         public void Update()
         {
 
         }
 
+        /// <summary>Liste des objets du niveau</summary>
         public List<Block> Elements
         {
             get { return _elements; }

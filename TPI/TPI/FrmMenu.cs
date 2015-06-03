@@ -12,14 +12,30 @@ using System.Windows.Forms;
 
 namespace TPI
 {
+    /// <summary>
+    /// Fenêtre vue à l’ouverture de l’application, 
+    /// elle permet de choisir entre rejoindre une partie 
+    /// ou en créer une ainsi que choisir son pseudo. 
+    /// Elle ne contient cependant pas de code lié avec le réseau
+    /// </summary>
     public partial class FrmMenu : Form
     {
+        ///<summary> La fenêtre de jeu à lancer</summary>
         FrmGame frmGame;
+
+        /// <summary>
+        /// Initalise la fenêtre
+        /// </summary>
         public FrmMenu()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Crée une fenêtre de jeu et passe les paramètres de connexion si les champs sont valides.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnJoin_Click(object sender, EventArgs e)
         {
             if (verifyFields())
@@ -29,6 +45,11 @@ namespace TPI
             }
         }
 
+        /// <summary>
+        /// Crée une fenêtre de jeu et passe les paramètres de création si les champs sont valides.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCreate_Click(object sender, EventArgs e)
         {
             if (verifyFields())
@@ -38,6 +59,10 @@ namespace TPI
             }
         }
 
+        /// <summary>
+        /// Vérifie si les champs ip et pseudo ne sont pas vide et si l’ip est à un bon format grâce à une expression régulière
+        /// </summary>
+        /// <returns>True si les champs sont valides, false sinon</returns>
         private bool verifyFields()
         {
             bool ok = true;

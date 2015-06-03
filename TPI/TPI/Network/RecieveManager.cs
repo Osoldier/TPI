@@ -12,6 +12,9 @@ using TPI.Entities;
 
 namespace TPI.Network
 {
+    /// <summary>
+    /// Géstionnaire de réception du réseau
+    /// </summary>
     public class RecieveManager : NetworkRecieveCallback
     {
         ///<summary>Demande de connexion à une partie</summary>
@@ -30,6 +33,14 @@ namespace TPI.Network
         private Game game;
         private bool locked = false;
 
+        /// <summary>
+        /// Initialise le gestionnaire de réception réseau
+        /// </summary>
+        /// <param name="pIsHost"></param>
+        /// <param name="pID"></param>
+        /// <param name="pLevel"></param>
+        /// <param name="pComp"></param>
+        /// <param name="pGame"></param>
         public RecieveManager(bool pIsHost, long pID, Level pLevel, Character pComp, Game pGame)
         {
             this.level = pLevel;
@@ -72,6 +83,7 @@ namespace TPI.Network
                 locked = true;
                 game.NetManager.Send(ID_RETURN + " " + ID);
                 SendLevelInfos();
+                game.Full = true;
             }
         }
 
@@ -80,6 +92,7 @@ namespace TPI.Network
             if (isHost) return;
             long id = Int64.Parse(pId);
             this.ID = id;
+            this.game.GameID = this.ID;
         }
 
         private void HandleLevelInfos(string pInfos)
@@ -100,17 +113,18 @@ namespace TPI.Network
             lock (Level.CollectionLocker)
                 this.level.Elements.Add(ptf);
 
-            Game.Full = true;
+            game.Full = true;
         }
 
         private void HandleCompetitorUpdate(string pInfos)
         {
             string[] infos = pInfos.Split(' ');
+            Debug.WriteLine(infos[0] + " " + ID+" | "+isHost);
 
             if (Int64.Parse(infos[0]) != ID) return;
 
             int w = Int32.Parse(infos[1]);
-            if ((w == 1 && isHost) || (w == 0 && !isHost)) return;
+            if (w == game.PlayerID) return;
 
             float x = float.Parse(infos[2].Split('-')[0]);
             float y = float.Parse(infos[2].Split('-')[1]);

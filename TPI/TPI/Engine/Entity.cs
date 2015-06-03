@@ -11,8 +11,13 @@ using System.Drawing.Drawing2D;
 
 namespace TPI.Engine
 {
+    /// <summary>
+    /// Classe parente de tous les objets du jeu, 
+    /// permet une méthode de rendu générique et l’implémentation d’une méthode de mise à jour
+    /// </summary>
     public abstract class Entity
     {
+        /// <summary>Référence vers le contexte d’affichage afin de pouvoir faire un rendu sur la fenêtre</summary>
         public static Graphics Context;
 
         private Vector2f _position;
@@ -23,6 +28,9 @@ namespace TPI.Engine
         private Color _color;
         private Entity _lastCollidable;
 
+        /// <summary>
+        /// Rend l’entité sous la forme d’un rectangle
+        /// </summary>
         public virtual void Render()
         {
             if (Pen == null)
@@ -45,6 +53,9 @@ namespace TPI.Engine
             Context.Restore(state);
         }
 
+        /// <summary>
+        /// Méthode implémentable, contient toute la logique liée à l'entité
+        /// </summary>
         public abstract void Update();
 
         /// <summary>
@@ -117,42 +128,63 @@ namespace TPI.Engine
             return false;
         }
 
+        /// <summary>
+        /// Texture de l’entité
+        /// </summary>
         public Image Texture
         {
             get { return _texture; }
             set { _texture = value; }
         }
 
-
+        /// <summary>
+        /// Rotation en degrés de l’entité sur l’axe z
+        /// </summary>
         public float Rotation
         {
             get { return _rotation; }
             set { _rotation = value; }
         }
 
+        /// <summary>
+        /// Taille de l’entité
+        /// </summary>
         public Vector2f Size
         {
             get { return _size; }
             set { _size = value; }
         }
 
+        /// <summary>
+        /// Position de l’entité (coin supérieur gauche)
+        /// </summary>
         public Vector2f Position
         {
             get { return _position; }
             set { _position = value; }
         }
 
+        /// <summary>
+        /// Outil utilisé pour le rendu
+        /// </summary>
         public Pen Pen
         {
             get { return _pen; }
             set { _pen = value; }
         }
 
+        /// <summary>
+        /// Couleur de rendu
+        /// </summary>
         public Color Color
         {
             get { return _color; }
             set { _color = value; }
         }
+
+        /// <summary>
+        /// lorsqu’une collision est détectée cette variable se réfère à l’entité en collision
+        /// </summary>
         public Entity LastCollidable
         {
             get { return _lastCollidable; }
