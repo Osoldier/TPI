@@ -36,11 +36,11 @@ namespace TPI.Network
         /// <summary>
         /// Initialise le gestionnaire de réception réseau
         /// </summary>
-        /// <param name="pIsHost"></param>
-        /// <param name="pID"></param>
-        /// <param name="pLevel"></param>
-        /// <param name="pComp"></param>
-        /// <param name="pGame"></param>
+        /// <param name="pIsHost">Le joueur est-il l'hôte</param>
+        /// <param name="pID">ID de la partie</param>
+        /// <param name="pLevel">Niveau actuel</param>
+        /// <param name="pComp">Adversaire</param>
+        /// <param name="pGame">Objet Game actuel</param>
         public RecieveManager(bool pIsHost, long pID, Level pLevel, Character pComp, Game pGame)
         {
             this.level = pLevel;
@@ -50,6 +50,10 @@ namespace TPI.Network
             this.game = pGame;
         }
 
+        /// <summary>
+        /// Gère la réception de message
+        /// </summary>
+        /// <param name="data"></param>
         public void OnRecieve(byte[] data)
         {
             string strData = NetworkManager.BytesToString(data);
@@ -76,6 +80,9 @@ namespace TPI.Network
             }
         }
 
+        /// <summary>
+        /// Gère une demande de connexion
+        /// </summary>
         private void HandleJoinRequest()
         {
             if (isHost && !locked)
@@ -87,6 +94,10 @@ namespace TPI.Network
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pId"></param>
         private void HandleIDReturn(string pId)
         {
             if (isHost) return;

@@ -32,6 +32,7 @@ namespace TPI
         private RecieveManager _recieveManager;
         private long _gameID;
         private int _playerID = 1;
+        private Pointer ptrCompetitor;
 
         /// <summary>
         /// Initalise le jeu
@@ -45,7 +46,8 @@ namespace TPI
 
             Running = true;
             Player = new Character(Color.Blue, new Vector2f());
-            Competitor = new Character(Color.FromArgb(128, Color.Red), new Vector2f());
+            Competitor = new Character(Color.FromArgb(128, Color.Red), new Vector2f(1800, 0));
+            PtrCompetitor = new Pointer(this.Competitor, this.Player);
 
             IPAddress ip;
             IPAddress.TryParse(pIP, out ip);
@@ -74,6 +76,7 @@ namespace TPI
             CurrentLevel.Render();
             Player.Render();
             Competitor.Render();
+            PtrCompetitor.Render();
             Entity.Context.Restore(gs);
         }
 
@@ -98,6 +101,8 @@ namespace TPI
                     if (Full)
                         NetManager.Send("010 " + GameID + " " + PlayerID + " " + Player.Position.X + "-" + Player.Position.Y);
                 }
+
+                PtrCompetitor.Update();
 
                 CapLoop(Constants.UPDATE_CAP * Constants.GAME_SPEED, stopWatchUp.ElapsedMilliseconds - lastUp);
                 lastUp = stopWatchUp.ElapsedMilliseconds;
@@ -184,6 +189,12 @@ namespace TPI
         {
             get { return _recieveManager; }
             set { _recieveManager = value; }
+        }
+        /// <summary>Permet de visualiser l'adversaire lorsqu'il est en dehors de l'écran</summary>
+        public Pointer PtrCompetitor
+        {
+            get { return ptrCompetitor; }
+            set { ptrCompetitor = value; }
         }
     }
 }

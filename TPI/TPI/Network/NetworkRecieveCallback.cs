@@ -7,8 +7,15 @@
  */
 namespace TPI.Network
 {
+    /// <summary>
+    /// Interface NetworkRecieveCallback
+    /// </summary>
     public interface NetworkRecieveCallback
     {
+        /// <summary>
+        /// Appellé quand un message est reçu.
+        /// </summary>
+        /// <param name="data">Le message.</param>
         void OnRecieve(byte[] data);
     }
 }
