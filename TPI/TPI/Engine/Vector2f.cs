@@ -35,11 +35,18 @@ namespace TPI.Engine
 
         }
 
+        /// <summary>
+        /// Calcule la norme du vecteur
+        /// </summary>
+        /// <returns></returns>
         public float Magnitude()
         {
             return (float)Math.Sqrt(this.X * this.X + this.Y * this.Y);
         }
 
+        /// <summary>
+        /// Normalise (rend unitaire) le vecteur
+        /// </summary>
         public void Normalize()
         {
             float mag = this.Magnitude();
@@ -47,6 +54,10 @@ namespace TPI.Engine
             this.Y /= mag;
         }
 
+        /// <summary>
+        /// Calcule l'angle polaire du vecteur
+        /// </summary>
+        /// <returns></returns>
         public double GetAngle()
         {
             return (180 / Math.PI) * (Math.Atan2(this.X, this.Y));

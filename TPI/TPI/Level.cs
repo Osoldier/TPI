@@ -38,7 +38,7 @@ namespace TPI
             if (pGenerate)
                 this.generateRandomly(pSeed);
         }
-        
+
         /// <summary>
         /// Génére un niveau aléatoirement 
         /// </summary>
@@ -70,7 +70,7 @@ namespace TPI
                 gap = 100;
                 lastHeight = height;
             }
-
+            this.Elements[this.Elements.Count - 1].End = true;
         }
 
         /// <summary>

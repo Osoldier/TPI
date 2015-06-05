@@ -35,7 +35,7 @@ namespace TPI
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-            Game = new Game(pJoin, pIP, pName);
+            Game = new Game(pJoin, pIP, pName, this);
             thrUpdate = new Thread(new ThreadStart(Game.Update));
             thrUpdate.Start();
         }

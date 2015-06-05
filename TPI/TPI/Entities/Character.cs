@@ -8,6 +8,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using TPI.Engine;
 
@@ -20,9 +21,9 @@ namespace TPI.Entities
     {
         /// <summary>Longueur d’un personnage</summary>
         private const float WIDTH = 30;
-        /// <summary></summary>
+        /// <summary>Hauteur d'un personnage</summary>
         private const float HEIGHT = 30;
-        /// <summary></summary>
+        /// <summary>Vitesse horizontale d'un personnage</summary>
         private const float SPEED = 5f;
 
         private float _verticalSpeed = 0;
@@ -54,8 +55,17 @@ namespace TPI.Entities
         {
             lock (Level.CollectionLocker)
             {
-                ApplyPhysic();
-                HandleInput();
+                if (Game.GameStarted)
+                {
+                    ApplyPhysic();
+                    HandleInput();
+                }
+            }
+
+            if (Position.Y > 730)
+            {
+                Position.Y = 0;
+                Position.X = 0;
             }
         }
 
@@ -75,6 +85,15 @@ namespace TPI.Entities
             }
             else
             {
+                if (LastCollidable.GetType().IsSubclassOf(typeof(Block)))
+                {
+                    Block b = (Block)LastCollidable;
+                    if (b.End)
+                    {
+                        Game.GameStarted = false;
+                        Game.Timer.Stop();
+                    }
+                }
                 VerticalSpeed -= gravityVelocity;
                 this.Grounded = true;
                 Jumping = false;

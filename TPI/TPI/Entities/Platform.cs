@@ -17,7 +17,6 @@ namespace TPI.Entities
     {
         /// <summary>Couleur des plateformes</summary>
         private readonly Color COLOR = Color.FromArgb(26, 235, 178);
-        private bool _end = false;
 
         /// <summary>
         /// Défini la position et la taille de la plateforme, 
@@ -37,13 +36,6 @@ namespace TPI.Entities
         /// </summary>
         public override void Update()
         {
-        }
-
-        /// <summary>La plateforme est la dernière du niveau ?</summary>
-        public bool End
-        {
-            get { return _end; }
-            set { _end = value; }
         }
     }
 }

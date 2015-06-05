@@ -20,7 +20,9 @@ namespace TPI.Engine
         public const float JUMP_SPEED = 8f;
         /// <summary>nombre de mise à jour dans une seconde</summary>
         public const int UPDATE_CAP = 60;
-        /// <summary>VItesse du je, 1 = normal, &lt;1 = lent, &gt;1 = rapide</summary>
+        /// <summary>Vitesse du jeu, 1 = normal, &lt;1 = lent, &gt;1 = rapide</summary>
         public const float GAME_SPEED = 1f;
+        ///<summary>Une minute en millisecondes</summary>
+        public const int BASE_TIME = 60000;
     }
 }

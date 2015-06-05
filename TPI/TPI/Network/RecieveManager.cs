@@ -7,6 +7,7 @@
  * Version: 0.1
  */
 using System.Diagnostics;
+using System.Windows.Forms;
 using TPI.Engine;
 using TPI.Entities;
 
@@ -25,6 +26,8 @@ namespace TPI.Network
         private const string PLATFORM_UPDATE = "002";
         ///<summary>Position du joueur [ID = id de la partie, W = id du joueur (0 pour le créateur, 1 pour celui qui rejoint)] (010 ID W X-Y)</summary>
         private const string PLAYER_UPDATE = "010";
+        ///<summary>Envoyé lorsqu'un joueur à gagné [ID = id de la partie, W = id du joueur (0 pour le créateur, 1 pour celui qui rejoint)] (011 ID W)</summary>
+        private const string PLAYER_WON = "011";
 
         private bool isHost;
         private long ID;
@@ -77,6 +80,9 @@ namespace TPI.Network
                 case PLAYER_UPDATE:
                     HandleCompetitorUpdate(rest);
                     break;
+                case PLAYER_WON:
+                    HandlePlayerWinning(rest);
+                    break;
             }
         }
 
@@ -95,7 +101,7 @@ namespace TPI.Network
         }
 
         /// <summary>
-        /// 
+        /// Gère l'arrivée de l'id de la partie
         /// </summary>
         /// <param name="pId"></param>
         private void HandleIDReturn(string pId)
@@ -106,6 +112,10 @@ namespace TPI.Network
             this.game.GameID = this.ID;
         }
 
+        /// <summary>
+        /// Gère l'arrivée des positions des plateformes
+        /// </summary>
+        /// <param name="pId"></param>
         private void HandleLevelInfos(string pInfos)
         {
             if (isHost) return;
@@ -125,12 +135,18 @@ namespace TPI.Network
                 this.level.Elements.Add(ptf);
 
             game.Full = true;
+            Game.GameStarted = true;
+            Game.Timer = Stopwatch.StartNew();
         }
 
+        /// <summary>
+        /// Gère l'arrivée de la position de l'adversaire
+        /// </summary>
+        /// <param name="pId"></param>
         private void HandleCompetitorUpdate(string pInfos)
         {
             string[] infos = pInfos.Split(' ');
-            Debug.WriteLine(infos[0] + " " + ID+" | "+isHost);
+            Debug.WriteLine(infos[0] + " " + ID + " | " + isHost);
 
             if (Int64.Parse(infos[0]) != ID) return;
 
@@ -144,6 +160,24 @@ namespace TPI.Network
             competitor.Position.Y = y;
         }
 
+        private void HandlePlayerWinning(string pInfos)
+        {
+            string[] infos = pInfos.Split(' ');
+            if (!Game.GameStarted) return;
+            if (Int64.Parse(infos[0]) != game.GameID) return;
+            if (Int32.Parse(infos[1]) != game.PlayerID)
+            {
+                Game.Timer.Stop();
+                Game.GameStarted = false;
+                MessageBox.Show("Perdu !");
+                game.Reset();
+            }
+        }
+
+        /// <summary>
+        /// Envoie les positions des plateformes
+        /// </summary>
+        /// <param name="pId"></param>
         private void SendLevelInfos()
         {
             foreach (Platform ptf in level.Elements)
@@ -151,6 +185,8 @@ namespace TPI.Network
                 string info = PLATFORM_UPDATE + " " + ID + " " + (ptf.End ? "1" : "0") + " " + ptf.Position.X + "-" + ptf.Position.Y + " " + ptf.Size.X + "-" + ptf.Size.Y;
                 game.NetManager.Send(info);
             }
+            Game.Timer = Stopwatch.StartNew();
+            Game.GameStarted = true;
         }
     }
 }

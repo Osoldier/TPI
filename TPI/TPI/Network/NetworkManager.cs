@@ -45,7 +45,8 @@ namespace TPI.Network {
 
             this.Client = new UdpClient();
             this.Client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            this.Client.Client.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 10);
+            this.Client.Client.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 127);
+            this.Client.Client.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.IpTimeToLive, 127);
             this.Client.ExclusiveAddressUse = false;
             this.Client.Client.Bind(this.LocalEndPoint);
             this.Client.JoinMulticastGroup(this.MulticastIpAddress);
@@ -99,6 +100,8 @@ namespace TPI.Network {
         {
             this.Listening = false;
             this.Listener.Join();
+            this.Client.Client.Close();
+            this.Client.Close();
         }
 
         /// <summary>

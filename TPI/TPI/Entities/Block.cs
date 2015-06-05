@@ -14,5 +14,13 @@ namespace TPI.Entities
     /// </summary>
     public abstract class Block : Entity
     {
+        private bool _end = false;
+
+        /// <summary>La plateforme est la dernière du niveau ?</summary>
+        public bool End
+        {
+            get { return _end; }
+            set { _end = value; }
+        }
     }
 }

@@ -1,16 +1,17 @@
-﻿using System;
-/**
+﻿/**
  * Document: Game.cs
  * Description: Gère la totalité du jeu
  * Auteur: Ibanez Thomas
  * Date: 29.05.15
  * Version: 0.1
  */
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Net;
 using System.Threading;
+using System.Windows.Forms;
 using TPI.Engine;
 using TPI.Entities;
 using TPI.Network;
@@ -33,6 +34,12 @@ namespace TPI
         private long _gameID;
         private int _playerID = 1;
         private Pointer ptrCompetitor;
+        private static Stopwatch _timer;
+        private static bool _gameStarted;
+
+        private FrmGame _launcher;
+        private delegate void CleanUpMethod();
+        private CleanUpMethod clean;
 
         /// <summary>
         /// Initalise le jeu
@@ -40,13 +47,14 @@ namespace TPI
         /// <param name="pJoin">True si le joueur rejoint une partie, false si il la crée</param>
         /// <param name="pIP">adresse ip de la partie</param>
         /// <param name="pName">Pseudo du joueur</param>
-        public Game(bool pJoin, string pIP, string pName)
+        public Game(bool pJoin, string pIP, string pName, FrmGame pLauncher)
         {
             CurrentLevel = new Level(-1, !pJoin);
-
+            this.Launcher = pLauncher;
+            this.clean = new CleanUpMethod(CleanUp);
             Running = true;
             Player = new Character(Color.Blue, new Vector2f());
-            Competitor = new Character(Color.FromArgb(128, Color.Red), new Vector2f(1800, 0));
+            Competitor = new Character(Color.FromArgb(128, Color.Red), new Vector2f());
             PtrCompetitor = new Pointer(this.Competitor, this.Player);
 
             IPAddress ip;
@@ -104,11 +112,37 @@ namespace TPI
 
                 PtrCompetitor.Update();
 
+                if (!GameStarted && Timer != null)
+                {
+                    NetManager.Send("011 " + GameID + " " + PlayerID);
+                    long score = (Constants.BASE_TIME - Timer.ElapsedMilliseconds > 0 ? Constants.BASE_TIME - Timer.ElapsedMilliseconds : 0);
+                    MessageBox.Show("Gagné ! " + Environment.NewLine + "Score: " + score);
+
+                    NetManager.StopListening();
+                    Launcher.Invoke(clean);
+                }
+
                 CapLoop(Constants.UPDATE_CAP * Constants.GAME_SPEED, stopWatchUp.ElapsedMilliseconds - lastUp);
                 lastUp = stopWatchUp.ElapsedMilliseconds;
             }
+        }
 
-            NetManager.StopListening();
+        /// <summary>
+        /// Remet les variables à leurs valeurs par défaut
+        /// </summary>
+        public void Reset()
+        {
+            Player = new Character(Color.Blue, new Vector2f());
+            Competitor = new Character(Color.FromArgb(128, Color.Red), new Vector2f());
+            PtrCompetitor = new Pointer(this.Competitor, this.Player);
+            CurrentLevel = new Level(-1, false);
+            Full = false;
+            Running = false;
+        }
+
+        public void CleanUp()
+        {
+            Launcher.Close();
         }
 
         /// <summary>
@@ -195,6 +229,24 @@ namespace TPI
         {
             get { return ptrCompetitor; }
             set { ptrCompetitor = value; }
+        }
+        /// <summary>Temps actuel pour finir le niveau</summary>
+        public static Stopwatch Timer
+        {
+            get { return _timer; }
+            set { _timer = value; }
+        }
+        /// <summary>La partie à commencée ?</summary>
+        public static bool GameStarted
+        {
+            get { return Game._gameStarted; }
+            set { Game._gameStarted = value; }
+        }
+
+        public FrmGame Launcher
+        {
+            get { return _launcher; }
+            set { _launcher = value; }
         }
     }
 }

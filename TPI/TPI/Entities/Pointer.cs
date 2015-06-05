@@ -32,6 +32,7 @@ namespace TPI.Entities
             this.Origin = pOrigin;
             this.Position = new Vector2f();
             this.Pen = new Pen(Color.Red, 5);
+            this.Target = new Vector2f();
         }
 
         /// <summary>
@@ -43,6 +44,7 @@ namespace TPI.Entities
             {
                 GraphicsState gs = Entity.Context.Save();
                 Entity.Context.ResetTransform();
+                Pen.EndCap = LineCap.ArrowAnchor;
                 Entity.Context.DrawLine(this.Pen, new PointF(this.Position.X, this.Position.Y), new PointF(this.Target.X, this.Target.Y));
                 Entity.Context.Restore(gs);
             }
@@ -54,22 +56,18 @@ namespace TPI.Entities
         public override void Update()
         {
             Renderable = false;
+            this.Position.Y = this.Origin.Position.Y;
             if (this.Spying.Position.X + this.Spying.Size.X < this.Origin.Position.X - 100)
             {
                 Renderable = true;
                 this.Position.X = LENGHT;
+                this.Target.X = 30;
+                this.Target.Y = this.Position.Y = 720 / 2;
             } else if (this.Spying.Position.X > this.Origin.Position.X - 100 + 1280) {
                 Renderable = true;
-                this.Position.X = 1280-LENGHT;
-            }
-
-            if(Renderable) {
-                this.Position.Y = this.Origin.Position.Y;
-                this.Target = this.Spying.Position - this.Origin.Position;
-                this.Target.X += this.Position.X;
-
-                this.Target.Normalize();
-                this.Target *= LENGHT - 10;
+                this.Position.X = 1280 - LENGHT;
+                this.Target.X = 1250;
+                this.Target.Y = this.Position.Y = 720 / 2;
             }
         }
 
