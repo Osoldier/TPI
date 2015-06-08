@@ -50,25 +50,25 @@ namespace TPI
             else rand = new Random(pSeed);
 
             int width = rand.Next(BLOCK_HEIGHT, BLOCK_MAX_WIDTH);
-            int height = 0;
+            int y = 0;
             int gap = 0;
-            int lastHeight = 0;
+            int lastY = 0;
             for (int i = 0; i <= LEVEL_WIDTH; i += width)
             {
                 width = rand.Next(BLOCK_HEIGHT + gap, BLOCK_MAX_WIDTH + gap);
-                height = rand.Next(720 / 2 - BLOCK_HEIGHT, 720 / 2 + BLOCK_HEIGHT);
-                if (i == 0) lastHeight = height;
+                y = rand.Next(720 / 2 - BLOCK_HEIGHT, 720 / 2 + BLOCK_HEIGHT);
+                if (i == 0) lastY = y;
 
-                int deltaHeight = height - lastHeight;
+                int deltaHeight = y - lastY;
 
                 if (Math.Abs(deltaHeight) > 100)
                 {
-                    height = lastHeight;
+                    y = lastY;
                 }
 
-                this.Elements.Add(new Platform(new Vector2f(i + gap, height), new Vector2f(width - gap, BLOCK_HEIGHT)));
+                this.Elements.Add(new Platform(new Vector2f(i + gap, y), new Vector2f(width - gap, BLOCK_HEIGHT)));
                 gap = 100;
-                lastHeight = height;
+                lastY = y;
             }
             this.Elements[this.Elements.Count - 1].End = true;
         }

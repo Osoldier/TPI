@@ -67,9 +67,9 @@ namespace TPI
 
             if (pJoin)
             {
+                CurrentLevel.Elements.Clear();
                 NetManager.SendTCP("000");
                 PlayerID = 0;
-                CurrentLevel.Elements.Clear();
                 Full = true;
             }
         }
@@ -115,6 +115,7 @@ namespace TPI
                 if (!GameStarted && Timer != null)
                 {
                     NetManager.SendTCP("011 " + GameID + " " + PlayerID);
+                    
                     long score = (Constants.BASE_TIME - Timer.ElapsedMilliseconds > 0 ? Constants.BASE_TIME - Timer.ElapsedMilliseconds : 0);
                     MessageBox.Show("Gagné ! " + Environment.NewLine + "Score: " + score);
 

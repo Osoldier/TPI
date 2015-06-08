@@ -8,6 +8,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using TPI.Engine;
+using System.Diagnostics;
 
 namespace TPI
 {
@@ -24,6 +25,7 @@ namespace TPI
         private Game _game;
         /// <summary>Thread de mise à jour</summary>
         private Thread thrUpdate;
+
 
         /// <summary>
         /// Active le double buffer, instancie une partie, et lance le thread de mise à jour
@@ -49,6 +51,8 @@ namespace TPI
             thrUpdate.Abort();
         }
 
+        private Stopwatch stopWatch = Stopwatch.StartNew();
+        long lastUp = 0;
         /// <summary>
         /// Met à jour le contexte de rendu, lance le rendu et invalide la fenêtre
         /// </summary>
@@ -59,6 +63,8 @@ namespace TPI
             Entity.Context = e.Graphics;
             Game.Render();
             this.Invalidate();
+            Game.CapLoop(60, stopWatch.ElapsedMilliseconds - lastUp);
+            lastUp = stopWatch.ElapsedMilliseconds;
         }
 
         /// <summary>

@@ -62,6 +62,9 @@ namespace TPI.Network
             return "";
         }
 
+        /// <summary>
+        /// Ferme la connexion
+        /// </summary>
         public void CleanUp()
         {
             this.Client.Client.Close();

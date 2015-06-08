@@ -120,7 +120,6 @@ namespace TPI.Network
                 if ((data = TcpCom.CheckIncomingMessages()) != string.Empty)
                 {
                     this.Callback.OnRecieve(data);
-                    Debug.WriteLine(data);
                 }
             }
             Thread.Sleep(1);

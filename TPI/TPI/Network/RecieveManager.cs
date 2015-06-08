@@ -15,7 +15,7 @@ using TPI.Entities;
 namespace TPI.Network
 {
     /// <summary>
-    /// Géstionnaire de réception du réseau
+    /// Gestionnaire de réception du réseau
     /// </summary>
     public class RecieveManager : NetworkRecieveCallback
     {
@@ -189,7 +189,7 @@ namespace TPI.Network
             {
                 string info = PLATFORM_UPDATE + " " + ID + " " + (ptf.End ? "1" : "0") + " " + ptf.Position.X + "-" + ptf.Position.Y + " " + ptf.Size.X + "-" + ptf.Size.Y;
                 game.NetManager.SendTCP(info);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
             Game.Timer = Stopwatch.StartNew();
             Game.GameStarted = true;

@@ -1,12 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="TPI.Network.RecieveManager">
-    <Position X="0.5" Y="1" Width="2" />
+  <Class Name="TPI.Network.TCPCommunicator">
+    <Position X="4.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAIAEAAgBsEAAAQAAADAAABEAAAAoAAAIBAAAAAA=</HashCode>
-      <FileName>Network\RecieveManager.cs</FileName>
+      <HashCode>AAAIQAAAAAACAEAAQEAAAAAAAAEIAACAAAAAAkAAABQ=</HashCode>
+      <FileName>Network\TCPCommunicator.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TPI.Network.UDPBroadcaster">
+    <Position X="7" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAIAAAgAAAAAEAAAEQAAAAQAAEAAAAAAAEAAEBAQAQ=</HashCode>
+      <FileName>Network\UDPBroadcaster.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Engine.Constants">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iAEAAAAAgAAAAgAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Engine.Entity">
+    <Position X="0.5" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAEAwAIiIAwEABAAAAAAAAAAAAAABIAgAIAAAA=</HashCode>
+      <FileName>Engine\Entity.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

@@ -106,7 +106,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="TPI.Network.RecieveManager" Collapsed="true">
-    <Position X="5.75" Y="5" Width="1.5" />
+    <Position X="2.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAIAEAAgBsEAAAQAAADAAABEAAAAoAAAIBAAAAAA=</HashCode>
       <FileName>Network\RecieveManager.cs</FileName>
@@ -114,15 +114,20 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TPI.Network.NetworkManager" Collapsed="true">
-    <Position X="3" Y="4" Width="1.5" />
+    <Position X="2.75" Y="3.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Properties" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>ACAIAAAgAAACAEAQAEQgAAAQAAAAAACQAgGAEABAQIQ=</HashCode>
+      <HashCode>AAAAAAAAAIACAAAQAAAgAAAAAABgAACQIgCAkAAAYIA=</HashCode>
       <FileName>Network\NetworkManager.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TcpCom" />
+      <Property Name="UdpBroadcaster" />
+      <Property Name="Callback" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="TPI.Entities.Pointer" Collapsed="true">
     <Position X="8.75" Y="2.5" Width="1.5" />
@@ -131,8 +136,22 @@
       <FileName>Entities\Pointer.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="TPI.Network.UDPBroadcaster" Collapsed="true">
+    <Position X="8" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAIAAAgAAAAAEAAAEQAAAAQAAEAAAAAAAEAAEBAQAQ=</HashCode>
+      <FileName>Network\UDPBroadcaster.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPI.Network.TCPCommunicator" Collapsed="true">
+    <Position X="5.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIQAAAAAACAEAAQEAAAAAAAAEIAACAAAAAAkAAABQ=</HashCode>
+      <FileName>Network\TCPCommunicator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="TPI.Network.NetworkRecieveCallback" Collapsed="true">
-    <Position X="5.75" Y="4" Width="1.5" />
+    <Position X="2.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Network\NetworkRecieveCallback.cs</FileName>
