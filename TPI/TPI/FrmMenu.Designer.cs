@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.lblIp = new System.Windows.Forms.Label();
-            this.tbxIP = new System.Windows.Forms.TextBox();
             this.btnJoin = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
             this.tbxNickname = new System.Windows.Forms.TextBox();
             this.lblPseudo = new System.Windows.Forms.Label();
+            this.cmbIP = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblIp
@@ -47,15 +47,6 @@
             this.lblIp.Size = new System.Drawing.Size(95, 20);
             this.lblIp.TabIndex = 0;
             this.lblIp.Text = "Adresse IP: ";
-            // 
-            // tbxIP
-            // 
-            this.tbxIP.Location = new System.Drawing.Point(202, 12);
-            this.tbxIP.Name = "tbxIP";
-            this.tbxIP.Size = new System.Drawing.Size(100, 20);
-            this.tbxIP.TabIndex = 1;
-            this.tbxIP.Text = "225.0.0.1";
-            this.tbxIP.TextChanged += new System.EventHandler(this.tbxIP_TextChanged);
             // 
             // btnJoin
             // 
@@ -108,6 +99,14 @@
             this.lblPseudo.TabIndex = 2;
             this.lblPseudo.Text = "Pseudo : ";
             // 
+            // cmbIP
+            // 
+            this.cmbIP.FormattingEnabled = true;
+            this.cmbIP.Location = new System.Drawing.Point(202, 11);
+            this.cmbIP.Name = "cmbIP";
+            this.cmbIP.Size = new System.Drawing.Size(100, 21);
+            this.cmbIP.TabIndex = 6;
+            // 
             // FrmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -115,11 +114,11 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = global::TPI.Properties.Resources.back_10;
             this.ClientSize = new System.Drawing.Size(387, 166);
+            this.Controls.Add(this.cmbIP);
             this.Controls.Add(this.tbxNickname);
             this.Controls.Add(this.lblPseudo);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.btnJoin);
-            this.Controls.Add(this.tbxIP);
             this.Controls.Add(this.lblIp);
             this.Name = "FrmMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -132,11 +131,11 @@
         #endregion
 
         private System.Windows.Forms.Label lblIp;
-        private System.Windows.Forms.TextBox tbxIP;
         private System.Windows.Forms.Button btnJoin;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.TextBox tbxNickname;
         private System.Windows.Forms.Label lblPseudo;
+        private System.Windows.Forms.ComboBox cmbIP;
     }
 }
 

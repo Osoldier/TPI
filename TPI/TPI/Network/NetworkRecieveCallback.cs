@@ -16,6 +16,6 @@ namespace TPI.Network
         /// Appellé quand un message est reçu.
         /// </summary>
         /// <param name="data">Le message.</param>
-        void OnRecieve(byte[] data);
+        void OnRecieve(string data);
     }
 }

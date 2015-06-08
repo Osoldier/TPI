@@ -69,6 +69,8 @@
     <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Network\NetworkRecieveCallback.cs" />
     <Compile Include="Network\RecieveManager.cs" />
+    <Compile Include="Network\TCPCommunicator.cs" />
+    <Compile Include="Network\UDPBroadcaster.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmGame.resx">

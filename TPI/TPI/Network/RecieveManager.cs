@@ -1,12 +1,13 @@
-﻿using System;
-/**
+﻿/**
  * Document: RecieveManager.cs
  * Description: Enfant de NetworkRecieveCallback, gère les messages reçus
  * Auteur: Ibanez Thomas
  * Date: 29.05.15
  * Version: 0.1
  */
+using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows.Forms;
 using TPI.Engine;
 using TPI.Entities;
@@ -57,9 +58,9 @@ namespace TPI.Network
         /// Gère la réception de message
         /// </summary>
         /// <param name="data"></param>
-        public void OnRecieve(byte[] data)
+        public void OnRecieve(string data)
         {
-            string strData = NetworkManager.BytesToString(data);
+            string strData = data;
             string code = strData.Substring(0, 3);
             string rest = "";
 
@@ -94,7 +95,7 @@ namespace TPI.Network
             if (isHost && !locked)
             {
                 locked = true;
-                game.NetManager.Send(ID_RETURN + " " + ID);
+                game.NetManager.SendTCP(ID_RETURN + " " + ID);
                 SendLevelInfos();
                 game.Full = true;
             }
@@ -160,6 +161,10 @@ namespace TPI.Network
             competitor.Position.Y = y;
         }
 
+        /// <summary>
+        /// Gère le message de victoire d'un joueur
+        /// </summary>
+        /// <param name="pInfos"></param>
         private void HandlePlayerWinning(string pInfos)
         {
             string[] infos = pInfos.Split(' ');
@@ -183,7 +188,8 @@ namespace TPI.Network
             foreach (Platform ptf in level.Elements)
             {
                 string info = PLATFORM_UPDATE + " " + ID + " " + (ptf.End ? "1" : "0") + " " + ptf.Position.X + "-" + ptf.Position.Y + " " + ptf.Size.X + "-" + ptf.Size.Y;
-                game.NetManager.Send(info);
+                game.NetManager.SendTCP(info);
+                Thread.Sleep(1000);
             }
             Game.Timer = Stopwatch.StartNew();
             Game.GameStarted = true;

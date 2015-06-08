@@ -63,11 +63,11 @@ namespace TPI
             GameID = pJoin ? 0 : GetTimeMicroSeconds();
 
             RecieveManager = new Network.RecieveManager(!pJoin, GameID, CurrentLevel, Competitor, this);
-            NetManager = new NetworkManager(ip, RecieveManager);
+            NetManager = new NetworkManager(pJoin, ip, RecieveManager);
 
             if (pJoin)
             {
-                NetManager.Send("000");
+                NetManager.SendTCP("000");
                 PlayerID = 0;
                 CurrentLevel.Elements.Clear();
                 Full = true;
@@ -107,14 +107,14 @@ namespace TPI
                 {
                     netCooldown = 0;
                     if (Full)
-                        NetManager.Send("010 " + GameID + " " + PlayerID + " " + Player.Position.X + "-" + Player.Position.Y);
+                        NetManager.SendUDP("010 " + GameID + " " + PlayerID + " " + Player.Position.X + "-" + Player.Position.Y);
                 }
 
                 PtrCompetitor.Update();
 
                 if (!GameStarted && Timer != null)
                 {
-                    NetManager.Send("011 " + GameID + " " + PlayerID);
+                    NetManager.SendTCP("011 " + GameID + " " + PlayerID);
                     long score = (Constants.BASE_TIME - Timer.ElapsedMilliseconds > 0 ? Constants.BASE_TIME - Timer.ElapsedMilliseconds : 0);
                     MessageBox.Show("Gagné ! " + Environment.NewLine + "Score: " + score);
 

@@ -6,7 +6,10 @@
  * Version: 0.1
  */
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Net;
+using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -29,6 +32,7 @@ namespace TPI
         public FrmMenu()
         {
             InitializeComponent();
+            cmbIP.Items.AddRange(getLocalIPs());
         }
 
         /// <summary>
@@ -40,7 +44,7 @@ namespace TPI
         {
             if (verifyFields())
             {
-                frmGame = new FrmGame(true, tbxIP.Text, tbxNickname.Text);
+                frmGame = new FrmGame(true, cmbIP.Text, tbxNickname.Text);
                 frmGame.Show();
             }
         }
@@ -54,7 +58,7 @@ namespace TPI
         {
             if (verifyFields())
             {
-                frmGame = new FrmGame(false, tbxIP.Text, tbxNickname.Text);
+                frmGame = new FrmGame(false, cmbIP.Text, tbxNickname.Text);
                 frmGame.Show();
             }
         }
@@ -66,9 +70,9 @@ namespace TPI
         private bool verifyFields()
         {
             bool ok = true;
-            if (tbxIP.Text.Trim().Equals(string.Empty))
+            if (cmbIP.Text.Trim().Equals(string.Empty))
             {
-                tbxIP.BackColor = Color.Red;
+                cmbIP.BackColor = Color.Red;
                 ok = false;
             }
             if (tbxNickname.Text.Trim().Equals(string.Empty))
@@ -78,22 +82,37 @@ namespace TPI
             }
             if (ok == true)
             {
-                if(!Regex.IsMatch(tbxIP.Text,@"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$", RegexOptions.None)) {
-                    tbxIP.BackColor = Color.Red;
+                if (!Regex.IsMatch(cmbIP.Text, @"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$", RegexOptions.None))
+                {
+                    cmbIP.BackColor = Color.Red;
                     ok = false;
                 }
             }
             return ok;
         }
 
-        private void tbxIP_TextChanged(object sender, EventArgs e)
-        {
-            tbxIP.BackColor = Color.White;
-        }
-
         private void tbxNickname_TextChanged(object sender, EventArgs e)
         {
             tbxNickname.BackColor = Color.White;
+        }
+
+        /// <summary>
+        /// Permet de retrouver toutes les ip disponible pour cette machine
+        /// </summary>
+        /// <returns>Tableau d'ip</returns>
+        public static string[] getLocalIPs()
+        {
+            IPHostEntry host;
+            List<string> localIPs = new List<string>();
+            host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    localIPs.Add(ip.ToString());
+                }
+            }
+            return localIPs.ToArray();
         }
     }
 }
