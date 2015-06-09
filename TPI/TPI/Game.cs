@@ -23,8 +23,12 @@ namespace TPI
     /// </summary>
     public class Game
     {
+        private static Stopwatch _timer;
+        private static bool _gameStarted;
         private static Level _currentLevel;
+
         private bool _full = false;
+        private bool _closed = false;
 
         private Character _player, _competitor;
         private bool _running;
@@ -34,8 +38,7 @@ namespace TPI
         private long _gameID;
         private int _playerID = 1;
         private Pointer ptrCompetitor;
-        private static Stopwatch _timer;
-        private static bool _gameStarted;
+
 
         private FrmGame _launcher;
         private delegate void CleanUpMethod();
@@ -64,6 +67,14 @@ namespace TPI
 
             RecieveManager = new Network.RecieveManager(!pJoin, GameID, CurrentLevel, Competitor, this);
             NetManager = new NetworkManager(pJoin, ip, RecieveManager);
+
+            if (!NetManager.Connected)
+            {
+                this.Reset();
+                this.Running = false;
+                this.CleanUp();
+                return;
+            }
 
             if (pJoin)
             {
@@ -103,6 +114,7 @@ namespace TPI
                 Player.Update();
                 this.XScroll = Player.Position.X;
 
+                //1/40 de seconde
                 if (netCooldown % (Constants.UPDATE_CAP / 40) == 0)
                 {
                     netCooldown = 0;
@@ -112,13 +124,10 @@ namespace TPI
 
                 PtrCompetitor.Update();
 
-                if (!GameStarted && Timer != null)
+                if (!GameStarted && Timer != null && !Closed)
                 {
+                    Closed = true;
                     NetManager.SendTCP("011 " + GameID + " " + PlayerID);
-                    
-                    long score = (Constants.BASE_TIME - Timer.ElapsedMilliseconds > 0 ? Constants.BASE_TIME - Timer.ElapsedMilliseconds : 0);
-                    MessageBox.Show("Gagné ! " + Environment.NewLine + "Score: " + score);
-
                     NetManager.StopListening();
                     Launcher.Invoke(clean);
                 }
@@ -143,11 +152,12 @@ namespace TPI
 
         public void CleanUp()
         {
+            Running = false;
             Launcher.Close();
         }
 
         /// <summary>
-        /// bloque le thread en fonction du temps d’exécution d’une boucle et du nombre d’exécution désirée par seconde
+        /// Bloque le thread en fonction du temps d’exécution d’une boucle et du nombre d’exécution désirée par seconde
         /// </summary>
         /// <param name="pCap">Nombre de tours par seconde</param>
         /// <param name="pExecutionTime">Dernier temps d'execution</param>
@@ -244,10 +254,18 @@ namespace TPI
             set { Game._gameStarted = value; }
         }
 
+        /// <summary>Fenêtre contenant le jeu</summary>
         public FrmGame Launcher
         {
             get { return _launcher; }
             set { _launcher = value; }
+        }
+
+        /// <summary>La partie est terminée</summary>
+        public bool Closed
+        {
+            get { return _closed; }
+            set { _closed = value; }
         }
     }
 }

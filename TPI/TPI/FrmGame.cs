@@ -24,7 +24,7 @@ namespace TPI
         /// <summary>Instance actuelle du jeu</summary>
         private Game _game;
         /// <summary>Thread de mise à jour</summary>
-        private Thread thrUpdate;
+        public Thread thrUpdate;
 
 
         /// <summary>
@@ -39,6 +39,7 @@ namespace TPI
             this.DoubleBuffered = true;
             Game = new Game(pJoin, pIP, pName, this);
             thrUpdate = new Thread(new ThreadStart(Game.Update));
+            thrUpdate.Name = "Updater";
             thrUpdate.Start();
         }
 
@@ -75,7 +76,7 @@ namespace TPI
         private void FrmGame_FormClosing(object sender, FormClosingEventArgs e)
         {
             Game.Running = false;
-            thrUpdate.Join();
+            thrUpdate.Abort();
         }
 
         public Game Game

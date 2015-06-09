@@ -92,6 +92,8 @@ namespace TPI.Entities
                     {
                         Game.GameStarted = false;
                         Game.Timer.Stop();
+                        long score = (Constants.BASE_TIME - Game.Timer.ElapsedMilliseconds > 0 ? Constants.BASE_TIME - Game.Timer.ElapsedMilliseconds : 0);
+                        MessageBox.Show("Gagné ! " + Environment.NewLine + "Score: " + score);
                     }
                 }
                 VerticalSpeed -= gravityVelocity;

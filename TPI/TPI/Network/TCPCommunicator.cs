@@ -8,6 +8,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace TPI.Network
 {
@@ -37,6 +38,10 @@ namespace TPI.Network
             {
                 Listen(pIP);
             }
+            if (Client == null && Server == null)
+            {
+                throw new Exception("Connexion impossible");
+            }
         }
 
         /// <summary>
@@ -45,8 +50,15 @@ namespace TPI.Network
         /// <param name="pIP"></param>
         public void Call(string pIP)
         {
-            Client = new TcpClient(pIP, PORT);
-            Stream = Client.GetStream();
+            try
+            {
+                Client = new TcpClient(pIP, PORT);
+                Stream = Client.GetStream();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         /// <summary>

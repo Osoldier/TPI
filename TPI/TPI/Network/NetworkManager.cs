@@ -9,6 +9,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
+using System;
 
 namespace TPI.Network
 {
@@ -23,6 +24,7 @@ namespace TPI.Network
         private NetworkRecieveCallback _callback;
         private bool _listening;
         private Thread _listener;
+        private bool _connected = false;
 
         /// <summary>
         /// Crée le manager et commence a écouter
@@ -32,9 +34,18 @@ namespace TPI.Network
         public NetworkManager(bool pJoin, IPAddress pIP, NetworkRecieveCallback pCallback)
         {
             this.Callback = pCallback;
-            this.TcpCom = new TCPCommunicator(pJoin, pIP.ToString());
-            this.UdpBroadcaster = new UDPBroadcaster();
-            this.StartListening();
+            try
+            {
+                this.TcpCom = new TCPCommunicator(pJoin, pIP.ToString());
+                this.UdpBroadcaster = new UDPBroadcaster();
+                this.StartListening();
+                Connected = true;
+            }
+            catch (Exception)
+            {
+                Connected = false;
+                StopListening();
+            }
         }
 
         /// <summary>
@@ -73,6 +84,7 @@ namespace TPI.Network
             this.Listening = true;
             this.Listener = new Thread(new ThreadStart(this.Receive));
             this.Listener.IsBackground = true;
+            this.Listener.Name = "Network Listener";
             this.Listener.Start();
         }
 
@@ -82,9 +94,12 @@ namespace TPI.Network
         public void StopListening()
         {
             this.Listening = false;
-            this.Listener.Join();
-            this.UdpBroadcaster.CleanUp();
-            this.TcpCom.CleanUp();
+            if (this.Listener != null)
+                this.Listener.Join();
+            if (this.UdpBroadcaster != null)
+                this.UdpBroadcaster.CleanUp();
+            if (this.TcpCom != null)
+                this.TcpCom.CleanUp();
         }
 
         /// <summary>
@@ -121,8 +136,9 @@ namespace TPI.Network
                 {
                     this.Callback.OnRecieve(data);
                 }
+                Thread.Sleep(1);
             }
-            Thread.Sleep(1);
+            return;
         }
 
         public UDPBroadcaster UdpBroadcaster
@@ -156,6 +172,12 @@ namespace TPI.Network
         {
             get { return _listener; }
             set { _listener = value; }
+        }
+
+        public bool Connected
+        {
+            get { return _connected; }
+            set { _connected = value; }
         }
     }
 }

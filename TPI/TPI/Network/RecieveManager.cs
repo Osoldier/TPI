@@ -95,7 +95,9 @@ namespace TPI.Network
             if (isHost && !locked)
             {
                 locked = true;
+                Thread.Sleep(100);
                 game.NetManager.SendTCP(ID_RETURN + " " + ID);
+                Thread.Sleep(100);
                 SendLevelInfos();
                 game.Full = true;
             }
@@ -190,9 +192,9 @@ namespace TPI.Network
                 string info = PLATFORM_UPDATE + " " + ID + " " + (ptf.End ? "1" : "0") + " " + ptf.Position.X + "-" + ptf.Position.Y + " " + ptf.Size.X + "-" + ptf.Size.Y;
                 game.NetManager.SendTCP(info);
                 Thread.Sleep(500);
+                Game.Timer = Stopwatch.StartNew();
+                Game.GameStarted = true;
             }
-            Game.Timer = Stopwatch.StartNew();
-            Game.GameStarted = true;
         }
     }
 }

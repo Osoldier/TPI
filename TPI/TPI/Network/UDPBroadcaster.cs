@@ -67,11 +67,12 @@ namespace TPI.Network
         /// </summary>
         public void CleanUp()
         {
-            this.Client.Client.Close();
+            if (Client.Client != null)
+                this.Client.Client.Close();
             this.Client.Close();
         }
 
-         /// <summary>
+        /// <summary>
         /// Client UDP
         /// </summary>
         public UdpClient Client

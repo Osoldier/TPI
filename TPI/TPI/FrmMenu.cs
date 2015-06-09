@@ -45,7 +45,8 @@ namespace TPI
             if (verifyFields())
             {
                 frmGame = new FrmGame(true, cmbIP.Text, tbxNickname.Text);
-                frmGame.Show();
+                if (!frmGame.IsDisposed)
+                    frmGame.Show();
             }
         }
 
@@ -59,7 +60,8 @@ namespace TPI
             if (verifyFields())
             {
                 frmGame = new FrmGame(false, cmbIP.Text, tbxNickname.Text);
-                frmGame.Show();
+                if (!frmGame.IsDisposed)
+                    frmGame.Show();
             }
         }
 
